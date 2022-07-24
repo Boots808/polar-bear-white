@@ -1,0 +1,28 @@
+{
+  "name": "polar-bear-white",
+  "version": "1.0.0",
+  "description": "Challenge 12 - MySQL",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boots808/polar-bear-white.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Boots808/polar-bear-white/issues"
+  },
+  "homepage": "https://github.com/Boots808/polar-bear-white#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
