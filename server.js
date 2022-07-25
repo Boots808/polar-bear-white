@@ -29,8 +29,11 @@ const connection = mysql.createConnection({
             "Add role",
             "Add department",
             "Add employee",
-            
+
 
         ]
     })
   }
+
+  //Bonus: Update employee managers, view employees by manager, view employees by department, delete , roles, and employees.
+//Bonus: View the total utilized budget of a department—in other words, the combined salaries of all employees in that department.
