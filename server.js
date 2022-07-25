@@ -62,11 +62,80 @@ const connection = mysql.createConnection({
     });
   }
 
-  const roleOptions = [];
-  const empOptions = [];
-  const deptOptions = [];
+  //role array "roleOptions"
+  const roleOptionsArr = [];
+  function selectRole() {
+    connection.query("SELECT * FROM role", function(err, res) {
+        if (err) throw err
+        for (var i = 0; i < res.length; i++) {
+            roleOptionsArr.push(res[i].title);
+        }
+    })
+    return roleOptionsArr;
+  }
 
-  //Function to Add Employee Role
+  const deptOptionsArr = [];
+  function selectDepartment() {
+    connection.query("SELECT * FROM department", function(err, res) {
+        if (err) throw err
+        for (var i = 0, i < res.length; i++) {
+            deptOptionsArr.push(res[i].name);
+        }
+    })
+    return deptOptionsArr;
+  }
+
+  //manager options array
+  const manOptionsArr = [];
+  function selectEmployee() {
+    connection.query("SELECT * FROM employee", function (err, res) {
+        if (err) throw err
+        for (var i = 0, i < res.length; i++) {
+            manOptionsArr.push(res[i].name);
+        }  
+    })
+  }
+
+  //add employee function
+  function addEmployee() {
+    selectEmployee()
+    inquirer.prompt([
+        {
+            name: "first",
+            type: "user input",
+            message: "Enter the first name of the new employee"
+        },
+        {
+            name: "last",
+            type: "user input",
+            message: "ENter the last name of the new employee"
+        },
+        {
+            name: "role",
+            type: "list",
+            message: "Select the employee's role",
+            choices: roleOptionsArr
+        },
+        {
+        name: "manager",
+        type: "list",
+        message: "Select the employee's reporting manager",
+        choices: manOptionsArr
+        }
+    ])
+
+    .then(function(result) {
+        let getRoleId = result.role.split("-")
+        let getManagerId = result.manager.split("-")
+        let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+        VALUES ('${result.firstname}', ${result.lastname}', ${getRoleId[0]}','${getReportingToId[0]}')`;)
+        connection.query(query, function(err, res) {
+            console.log(`${result.firstname} ${result.lastname} WAS SUCCESSFULLY ADDED!`)
+        });
+        runSearch();
+    };
+  
+  //add role function
   function addRole() {
 
     findRole()
@@ -92,9 +161,19 @@ const connection = mysql.createConnection({
         }
     ])
     .then(function(result) {
+        console.log(`${result.role}`)
+        let getDeptId = answer.dept.split(".")
+        let query = `INSERT INTO role (role title, salary, department_id)
+        VALUES ('${result.role}', '${result.salary}', '${getDeptId[0]}')`;
+        connection.query(query, function (err, res) {
+            console.log(`New role was Successfully Added ${result.role}`)
+        });
+        runSearch();
         
-    })
-  }
+    });
+  };
+
+
 
 
 
@@ -102,4 +181,5 @@ const connection = mysql.createConnection({
 //Bonus: View the total utilized budget of a department—in other words, the combined salaries of all employees in that department.
 
 //Resources:
-//SQL Functions: https://www.w3schools.com/sql/sql_ref_sqlserver.asp
+//SQL Functions: https://www.w3schools.com/sql/sql_ref_sqlserver.asp - https://www.w3schools.com/sql/sql_operators.asp
+//Lookup Functions: https://www.labkey.org/Documentation/wiki-page.view?name=lookups#:~:text=Lookups%20are%20an%20intuitive%20table,the%20source%20table%20or%20query.
