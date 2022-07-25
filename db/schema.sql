@@ -3,7 +3,7 @@ CREATE DATABASE employee_tracker;
 
 USE employee_tracker;
 
-CREATE TABLE role (
+CREATE TABLE roles (
     id INTEGER AUTO_INCREMENT NOT NULL,
     title VARCHAR(40) NOT NULL,
     salary DECIMAL(10,2) NOT NULL,

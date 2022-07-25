@@ -1,3 +1,7 @@
+-- Dummy data for testing to auto populate table
+
+
+-- test data for role
 INSERT INTO role (title, salary, department_id)
 VALUES
 ('CEO', 350000, 1),
@@ -18,7 +22,7 @@ VALUES
 ('FOREPERSON', 75000, 1),
 ('IT', 76000, 1);
 
-
+-- test data for dept
 INSERT INTO department (dept_name)
 VALUES
 ('EXECUTIVE'),
@@ -31,6 +35,7 @@ VALUES
 ('FINANCE'),
 ('DRAFTING');
 
+-- test data for employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
 (Leah, Villa, 1, 2),
@@ -53,6 +58,8 @@ VALUES
 (Randy, Carlson, 18, 3),
 (Jeffrey, Jorgenson, 19, 4),
 (Jennifer, Nelson, 20, 7);
+
+--Reference for seed file creation and input: https://medium.com/@shannen.ye/setting-up-a-database-and-seed-file-7e73fe2a9fe6
 
 
 
