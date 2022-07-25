@@ -26,9 +26,9 @@ const connection = mysql.createConnection({
         type: "list",
         name: "selection options",
         choices: [
+            "Add employee",
             "Add role",
             "Add department",
-            "Add employee",
             "View role",
             "View department",
             "View employee",
@@ -38,7 +38,11 @@ const connection = mysql.createConnection({
     .then(function(result) {
         console.log(result);
 
-        if(result.selection === "Add role") {
+        if(result.selection === "Add Employee") {
+            addEmployee();
+        }
+
+        else if(result.selection === "Add role") {
             addRole();
         }
         else if(result.selection === "Add department") {
@@ -108,7 +112,7 @@ const connection = mysql.createConnection({
         {
             name: "last",
             type: "user input",
-            message: "ENter the last name of the new employee"
+            message: "Enter the last name of the new employee"
         },
         {
             name: "role",
@@ -172,6 +176,10 @@ const connection = mysql.createConnection({
         
     });
   };
+
+  //add dept function
+
+  //add 
 
 
 
