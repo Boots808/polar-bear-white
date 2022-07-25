@@ -51,7 +51,7 @@ const connection = mysql.createConnection({
             viewDept();
         }
         else if(result.selection === "View employee") {
-            viewEmployees();
+            viewEmployee();
         }
         else if(result.selection === "Update employee role") {
             updateRole();
@@ -62,7 +62,39 @@ const connection = mysql.createConnection({
     });
   }
 
+  const roleOptions = [];
+  const empOptions = [];
+  const deptOptions = [];
+
   //Function to Add Employee Role
+  function addRole() {
+
+    findRole()
+    findEmployee()
+    findDept()
+
+    inquirer.prompt([
+        {
+            name: "role title",
+            type: "user input",
+            message: "Enter the title of the role to add"
+        },
+        {
+            name: "salary",
+            type: "user-input",
+            message: "Enter the annual salary of this role"
+        },
+        {
+            name: "department",
+            type: "list",
+            message: "Select the Department this role reports to",
+            choices: 'deptSelections'
+        }
+    ])
+    .then(function(result) {
+        
+    })
+  }
 
 
 
