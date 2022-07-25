@@ -178,8 +178,61 @@ const connection = mysql.createConnection({
   };
 
   //add dept function
+  function addDept() {
+    addRole()
+    addEmployee()
+    addDept()
 
-  //add 
+    inquirer.prompt([
+        {
+            name: "dept",
+            type: "user input",
+            message: "Select the department you wan to add"
+        }
+    ])
+    .then(function(result) {
+        let query = `INSERT INTO department (name)
+        VALUES ('${result.dept}')`;
+        connection.query(query, function(err,, res) {
+            console.log(`New Department Was Successfully Added! ${result.dept}`)
+        });
+        runSearch();
+    });
+  };
+
+  //add view functions below (employee, role, department)
+
+
+
+
+  //Update role function
+ 
+  function updateRole() {
+    connection.query('SELECT * FROM employee', function (err, result) {
+        if (err) throw (err);
+        inquirer.prompt([
+            const employeeUpdArray[];
+            {
+                name: "employeeName",
+                type: "list",
+                message: "Select employee to change role",
+                choices: function () {
+                    result.forEach(result => {
+                        employeeUpdArray.push(
+                            result.last_name
+                        );
+                    })
+                    return employeeUpdArray;
+                }
+                }
+            }
+        ])
+    })
+  }
+
+  // need to finish the rest
+
+
 
 
 
