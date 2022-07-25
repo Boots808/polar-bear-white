@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
     runSearch();
   });
 
-//User promts/selection list
+//User prompts/selection list
   function runSearch() {
     inquirer.prompt({
         type: "list",
@@ -65,5 +65,9 @@ const connection = mysql.createConnection({
   //Function to Add Employee Role
 
 
+
   //Bonus: Update employee managers, view employees by manager, view employees by department, delete , roles, and employees.
 //Bonus: View the total utilized budget of a department—in other words, the combined salaries of all employees in that department.
+
+//Resources:
+//SQL Functions: https://www.w3schools.com/sql/sql_ref_sqlserver.asp
