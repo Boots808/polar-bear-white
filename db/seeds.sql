@@ -2,7 +2,7 @@ INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Leah, Villa, 1, 4"), ("Haley, Fernandes, 2, 2"), ("August, Payton, 3, 3"), ("Jason, Heacox, 4, 2"), ("Joe, Snow, 5, 4"), ("James, Dean, 6, 2"), ("Jeanne, Lee, 7, 5"), ("Jake, Johnson, 8, 3"), ("Jacob, Hanson, 9, 5"), ("Jen, Jinson, 10, 3");
 
 INSERT INTO roles (title, salary, department_id)
-VALUES ("CEO, 400000, 1"), ("Manager, 120000, 2"), ("Laborer, 60000, 3"), ("Engineer, 200000, 4"), ("Payroll Specialist, 150000, 5")
+VALUES ("CEO, 400000, 1"), ("Manager, 120000, 2"), ("Laborer, 60000, 3"), ("Engineer, 200000, 4"), ("Payroll Specialist, 150000, 5");
 
 INSERT INTO department (name)
 VALUES ("Executive"), ("Administrative"), ("Manufacturing"), ("Engineering"), ("Accounting");
