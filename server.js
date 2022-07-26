@@ -12,11 +12,13 @@ const connection = mysql.createConnection({
     password: "Raquel",
     database: "employee_tracker_db"
   });
-//   connection.connect(function(err) {
-//     if (err) throw err;
 
-//     runDb();
-//   });
+      connection.connect(function(err) {
+        // if (err) throw err
+        // console.log("Connected as ID " + connection.threadId);
+        // console.log ("   WELCOME TO THE EMPLOYEE DATABASE   ");
+      runDb();
+       });
 
 //User prompts/selection list
   function runDb() {
@@ -140,12 +142,12 @@ function selectRole() {
 // Array for Managers
 let managerOptionArr = [];
 function selectManager() {
-  connection.query("SELECT first_name, last_name FROM employee", function(err, res) {
-    if (err) throw err
+  connection.query("SELECT first_name, last_name FROM employee",) //function(err, res) {
+    // if (err) throw err
     for (var i = 0; i < res.length; i++) {
       managersArr.push(res[i].first_name);
     }
-  })
+ // }//)
   return managerOptionArr;
 }
 
