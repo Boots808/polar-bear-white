@@ -4,20 +4,18 @@ const mysql = require("mysql2");
 const cTable = require("console.table");
 //const db = require(".");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3001,
-  user: "root",
-  password: "Raquel",
-  database: "employee_tracker_db"
-});
-
-connection.connect(function(err) {
-  //if (err) throw err;
-  console.log("connected as id " + connection.threadId);
-  startDB();
-
-});
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Raquel",
+    database: "employee_tracker_db"
+  });
+  
+  db.connect((err) => {
+    if (err) throw err;
+    console.log("connected as id ");
+    startDB();
+  });
 
 
 function startDB() {
@@ -87,7 +85,7 @@ function addDept() {
 
     }).then(function(answer){
 
-        connection.query("INSERT INTO department (name) VALUES (?)", [answer.newDept] , function(err, res) {
+    db.connect("INSERT INTO department (dept_name) VALUES (?)", [answer.newDept] , function(err, res) {
             if (err) throw err;
             console.table(res)
             startDB()
@@ -118,7 +116,7 @@ function addRole() {
     ])
     .then(function(answer) {
 
-      connection.query("INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)", [answer.newRole, answer.salary, answer.dept_id], function(err, res) {
+      db.connect("INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)", [answer.newRole, answer.salary, answer.dept_id], function(err, res) {
         if (err) throw err;
         console.table(res);
         startDB();
@@ -155,15 +153,14 @@ function addEmployee() {
     .then(function(answer) {
 
       
-      connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.first_name, answer.last_name, answer.role_id, answer.manager_id], function(err, res) {
+      db.connect("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.first_name, answer.last_name, answer.role_id, answer.manager_id], function(err, res) {
         if (err) throw err;
         console.table(res);
         startDB();
       });
     });
 }
-
-//arrays
+//update employee role
 
 function updateEmpRole() {
   inquirer
@@ -181,11 +178,9 @@ function updateEmpRole() {
       }
     ])
     .then(function(answer) {
-    //   let query = `INSERT INTO department (name) VALUES ("${answer.newDept}")`
-    //   let query = `'UPDATE employee SET role_id=${answer.role_update} WHERE first_name= ${answer.emp_update}`;
       console.log(query);
 
-      connection.query('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.role_update, answer.emp_update],function(err, res) {
+      db.connect('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.role_update, answer.emp_update],function(err, res) {
         if (err) throw err;
         console.table(res);
         startDB();
@@ -195,7 +190,7 @@ function updateEmpRole() {
 
 function viewDepts() {
   let query = "SELECT * FROM department";
-  connection.query(query, function(err, res) {
+  db.connect(query, function(err, res) {
     if (err) throw err;
     console.table(res);
     startDB();
@@ -204,7 +199,7 @@ function viewDepts() {
 
 function viewRoles() {
   let query = "SELECT * FROM role";
-  connection.query(query, function(err, res) {
+  db.connect(query, function(err, res) {
     if (err) throw err;
     console.table(res);
     startDB();
@@ -213,7 +208,7 @@ function viewRoles() {
 
 function viewAllEmployees() {
   let query = "SELECT * FROM employee";
-  connection.query(query, function(err, res) {
+  db.connect(query, function(err, res) {
     if (err) throw err;
     console.table(res);
     startDB();
