@@ -5,15 +5,14 @@ USE employee_tracker_db;
 
 CREATE TABLE department (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dept_name VARCHAR(25) NOT NULL
+    dept_name VARCHAR(25)
 );
 
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(40) NOT NULL,
-    salary DECIMAL(10,2) NOT NULL,
-    department_id INTEGER NOT NULL
-    
+    title VARCHAR(40),
+    salary DECIMAL(10,2),
+    department_id INTEGER
 );
 
 CREATE TABLE employee (
@@ -23,12 +22,4 @@ CREATE TABLE employee (
     role_id INT,
     manager_id INT Null
 );
-
-
-
-
-
--- SELECT * FROM employees;
--- SELECT * FROM roles;
--- SELECT * FROM departments;
 

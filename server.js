@@ -1,6 +1,5 @@
 //Dependencies
-const cTable = require("console.table");
-//const db = require("./db/connection");
+const CTable = require("console.table");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
 
@@ -16,6 +15,8 @@ db.connect((err) => {
   console.log("DB Connected");
   employee_tracker_db();
 });
+
+//SECOND CODE BELOW
 
 let employee_tracker_db = function () {
   inquirer
@@ -216,8 +217,8 @@ let employee_tracker_db = function () {
                   for (var i = 0; i < result.length; i++) {
                     array.push(result[i].title);
                   }
-                  var newArray = [...new Set(array)];
-                  return newArray;
+                  var newRoleArray = [...new Set(array)];
+                  return newRoleArray;
                 },
               },
             ])
@@ -228,7 +229,7 @@ let employee_tracker_db = function () {
                 }
               }
               for (var i = 0; i < result.length; i++) {
-                if (result[i].title === answers.role) {
+                if (result[i].title === answers.roles) {
                   var role = result[i];
                 }
               }
@@ -249,6 +250,8 @@ let employee_tracker_db = function () {
       }
     });
 };
+
+// FIRST CODE BELOW
 
 // const db = mysql.createConnection({
 //   host: "localhost",
