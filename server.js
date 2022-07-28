@@ -77,13 +77,12 @@ let employee_tracker_db = function () {
               [answers.department],
               (err, _result) => {
                 if (err) throw err;
-                console.log("New Department Added!");
+                console.log(`${answers.department} was Successfully Added!`);
                 employee_tracker_db();
               }
             );
           });
       } else if (answers.prompt === "Add Role") {
-        //function for adding role
         db.query(`SELECT * FROM department`, (err, _result) => {
           if (err) throw err;
           inquirer
@@ -92,7 +91,7 @@ let employee_tracker_db = function () {
                 //Role Info to Add
                 type: "input",
                 name: "role",
-                message: "Enter the new Role",
+                message: "Enter Title of New Role",
               },
               {
                 type: "input",
@@ -105,8 +104,8 @@ let employee_tracker_db = function () {
                 message: "Select Department for Role",
                 choices: () => {
                   var array = [];
-                  for (var i = 0; i < result.roles; i++) {
-                    array.push(result[i].dept_name);
+                  for (var i = 0; i < result.length; i++) {
+                    array.push(result[i].name);
                   }
                   return array;
                 },
@@ -120,20 +119,22 @@ let employee_tracker_db = function () {
               }
 
               db.query(
-                `INSERT INTO roles (title, salary, dept_id) VALUES (?,?,?)`,
+                `REPLACE INTO roles (title, salary, dept_id) VALUES (?,?,?)`,
                 [answers.role, answers.salary, dept_id],
                 (err, _result) => {
                   if (err) throw err;
-                  console.log("Employee was Added!");
+                  console.log(`${answers.role} was Successfully Added!`);
                   employee_tracker_db();
                 }
               );
             });
         });
+
+        //Add New Employee
       } else if (answers.prompt === "Add new Employee") {
         db.query(`SELECT * FROM employee, roles`, (err, result) => {
           if (err) throw err;
-
+          //Employee first and last name
           inquirer
             .prompt([
               {
@@ -156,7 +157,8 @@ let employee_tracker_db = function () {
                   for (var i = 0; i < result.length; i++) {
                     array.push(result[i].title);
                   }
-                  var newArray = [...new Set(array)];
+                  var newRoleArray = [...new Set(array)];
+                  return newRoleArray;
                 },
               },
               //Employee manager function
@@ -173,7 +175,7 @@ let employee_tracker_db = function () {
                 }
               }
               db.query(
-                `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`,
+                `REPLACE INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`,
                 [
                   answers.firstName,
                   answers.lastName,
@@ -182,7 +184,9 @@ let employee_tracker_db = function () {
                 ],
                 (err, result) => {
                   if (err) throw err;
-                  console.log(`${answers.employee} was Successfully Added!`);
+                  console.log(
+                    `${answers.firstName} ${answers.lastName} was Successfully Added!`
+                  );
                   employee_tracker_db();
                 }
               );
