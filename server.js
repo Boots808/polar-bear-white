@@ -43,21 +43,21 @@ let employee_tracker_db = function () {
         db.query(`SELECT * FROM department`, (err, result) => {
           if (err) throw err;
           console.log("Department List:");
-          console.Table(result);
+          console.table(result);
           employee_tracker_db();
         });
       } else if (answers.prompt === "View All Roles") {
         db.query(`SELECT * FROM roles`, (err, result) => {
           if (err) throw err;
           console.log("Roles List:");
-          console.Table(result);
+          console.table(result);
           employee_tracker_db();
         });
       } else if (answers.prompt === "View All Employees") {
         db.query(`SELECT * FROM employee`, (err, result) => {
           if (err) throw err;
           console.log("Employee List:");
-          console.Table(result);
+          console.table(result);
           employee_tracker_db();
         });
       } else if (answers.prompt === "Add a Department") {
