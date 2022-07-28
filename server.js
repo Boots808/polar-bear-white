@@ -73,7 +73,7 @@ let employee_tracker_db = function () {
           ])
           .then((answers) => {
             db.query(
-              `INSERT INTO department (name) VALUES (?)`,
+              `INSERT INTO department (dept_name) VALUES (?)`,
               [answers.department],
               (err, _result) => {
                 if (err) throw err;
@@ -105,8 +105,8 @@ let employee_tracker_db = function () {
                 message: "Select Department for Role",
                 choices: () => {
                   var array = [];
-                  for (var i = 0; i < result.length; i++) {
-                    array.push(result[i].name);
+                  for (var i = 0; i < result.department; i++) {
+                    array.push(result[i].dept_name);
                   }
                   return array;
                 },
@@ -120,7 +120,7 @@ let employee_tracker_db = function () {
               }
 
               db.query(
-                `INSERT INTO role (title, salary, dept_id) VALUES (?,?,?)`,
+                `INSERT INTO roles (title, salary, dept_id) VALUES (?,?,?)`,
                 [answers.role, answers.salary, dept_id],
                 (err, _result) => {
                   if (err) throw err;
@@ -131,7 +131,7 @@ let employee_tracker_db = function () {
             });
         });
       } else if (answers.prompt === "Add new Employee") {
-        db.query(`SELECT * FROM employee, role`, (err, result) => {
+        db.query(`SELECT * FROM employee, roles`, (err, result) => {
           if (err) throw err;
 
           inquirer
@@ -251,250 +251,8 @@ let employee_tracker_db = function () {
     });
 };
 
-// FIRST CODE BELOW
-
-// const db = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "Raquel",
-//   database: "employee_tracker_db",
-// });
-
-// db.connect((err) => {
-//   if (err) throw err;
-//   console.log("connected as id ");
-//   startTracker();
-// });
-
-// function startTracker() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "list",
-//         name: "userAnsw",
-//         message: "Select an Option From the List Below:",
-
-//         choices: [
-//           "Add department",
-//           "Add role",
-//           "Add employee",
-//           "View departments",
-//           "View roles",
-//           "View employees",
-//           "Update employee role",
-//           "Quit",
-//         ],
-//       },
-//     ])
-
-//     .then((res) => {
-//       console.log(res.userAnsw);
-
-//       switch (res.userAnsw) {
-//         case "Add department":
-//           addDept();
-//           break;
-
-//         case "Add role":
-//           addRole();
-//           break;
-
-//         case "Add employee":
-//           addEmployee();
-//           break;
-
-//         case "View departments":
-//           viewDepts();
-//           break;
-
-//         case "View roles":
-//           viewRoles();
-//           break;
-
-//         case "View all employees":
-//           viewAllEmployees();
-//           break;
-
-//         case "Update employee role":
-//           updateEmpRole();
-//           break;
-
-//         case "Exit":
-//           connection.end();
-//           break;
-//       }
-//     })
-//     .catch((err) => {
-//       if (err) throw err;
-//     });
-// }
-
-// //Add Department
-
-// function addDept() {
-//   inquirer
-//     .prompt({
-//       type: "input",
-//       message: "Enter the new Department Name",
-//       name: "newDept",
-//     })
-//     .then(function (answer) {
-//       db.connect(
-//         "INSERT INTO department (dept_name) VALUES (?)",
-//         [answer.newDept],
-//         function (err, res) {
-//           if (err) throw err;
-//           console.table(res);
-//           startTracker();
-//         }
-//       );
-//     });
-// }
-
-// //Add New Role
-
-// function addRole() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: "Enter the title of the new Role",
-//         name: "newRole",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the Salary for this role:",
-//         name: "salary",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the department ID number:",
-//         name: "dept_id",
-//       },
-//     ])
-//     .then(function (answer) {
-//       db.connect(
-//         "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)",
-//         [answer.newRole, answer.salary, answer.dept_id],
-//         function (err, res) {
-//           if (err) throw err;
-//           console.table(res);
-//           startTracker();
-//         }
-//       );
-//     });
-// }
-
-// //Add new employee
-
-// function addEmployee() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: "Enter the first name of the new employee",
-//         name: "first_name",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the last name of the new employee",
-//         name: "last_name",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the employees role ID number",
-//         name: "role_id",
-//       },
-//       {
-//         type: "input",
-//         message: "Enter the Manager's ID number",
-//         name: "manager_id",
-//       },
-//     ])
-//     .then(function (answer) {
-//       db.connect(
-//         "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
-//         [
-//           answer.first_name,
-//           answer.last_name,
-//           answer.role_id,
-//           answer.manager_id,
-//         ],
-//         function (err, res) {
-//           if (err) throw err;
-//           console.table(res);
-//           startTracker();
-//         }
-//       );
-//     });
-// }
-// //update employee role
-
-// function updateEmpRole() {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: "Enter employee you would like to update",
-//         name: "emp_update",
-//       },
-
-//       {
-//         type: "input",
-//         message: "Enter the name of employee new role",
-//         name: "role_update",
-//       },
-//     ])
-//     .then(function (answer) {
-//       console.log(query);
-
-//       db.connect(
-//         "UPDATE employee SET role_id=? WHERE first_name= ?",
-//         [answer.role_update, answer.emp_update],
-//         function (err, res) {
-//           if (err) throw err;
-//           console.table(res);
-//           startTracker();
-//         }
-//       );
-//     });
-// }
-
-// function viewDepts() {
-//   let query = "SELECT * FROM department";
-//   db.connect(query, function (err, res) {
-//     if (err) throw err;
-//     console.table(res);
-//     startTracker();
-//   });
-// }
-
-// function viewRoles() {
-//   let query = "SELECT * FROM role";
-//   db.connect(query, function (err, res) {
-//     if (err) throw err;
-//     console.table(res);
-//     startTracker();
-//   });
-// }
-
-// function viewAllEmployees() {
-//   let query = "SELECT * FROM employee";
-//   db.connect(query, function (err, res) {
-//     if (err) throw err;
-//     console.table(res);
-//     startTracker();
-//   });
-// }
-
-// function quit() {
-//   connection.end();
-//   process.exit();
-// }
-
-// //   //Bonus: Update employee managers, view employees by manager, view employees by department, delete , roles, and employees.
-// // //Bonus: View the total utilized budget of a department—in other words, the combined salaries of all employees in that department.
-
-// // //Resources:
-// // //SQL Functions: https://www.w3schools.com/sql/sql_ref_sqlserver.asp - https://www.w3schools.com/sql/sql_operators.asp
-// // //Lookup Functions: https://www.labkey.org/Documentation/wiki-page.view?name=lookups#:~:text=Lookups%20are%20an%20intuitive%20table,the%20source%20table%20or%20query.
+//Resources:
+//SQL Functions: https://www.w3schools.com/sql/sql_ref_sqlserver.asp - https://www.w3schools.com/sql/sql_operators.asp
+//Lookup Functions: https://www.labkey.org/Documentation/wiki-page.view?name=lookups#:~:text=Lookups%20are%20an%20intuitive%20table,the%20source%20table%20or%20query.
+//SQL ERROR: https://stackoverflow.com/questions/21785975/mysql-error-1136-21s01-column-count-doesnt-match-value-count-at-row-1
+//New Set Array: https://stackoverflow.com/questions/63928416/how-does-new-setarray-works-in-javascript#:~:text=Essentially%20a%20Set%20is%20a,remove%20duplicates%20from%20the%20array.
