@@ -73,7 +73,7 @@ let employee_tracker_db = function () {
           ])
           .then((answers) => {
             db.query(
-              `INSERT INTO department (dept_name) VALUES (?)`,
+              `REPLACE INTO department (dept_name) VALUES (?)`,
               [answers.department],
               (err, _result) => {
                 if (err) throw err;
@@ -105,7 +105,7 @@ let employee_tracker_db = function () {
                 message: "Select Department for Role",
                 choices: () => {
                   var array = [];
-                  for (var i = 0; i < result.department; i++) {
+                  for (var i = 0; i < result.roles; i++) {
                     array.push(result[i].dept_name);
                   }
                   return array;
@@ -182,7 +182,7 @@ let employee_tracker_db = function () {
                 ],
                 (err, result) => {
                   if (err) throw err;
-                  console.log("Employee Added Successfully!");
+                  console.log(`${answers.employee} was Successfully Added!`);
                   employee_tracker_db();
                 }
               );
@@ -238,7 +238,7 @@ let employee_tracker_db = function () {
                 [{ role_id: role }, { last_name: name }],
                 (err, result) => {
                   if (err) throw err;
-                  console.log("Role was Successfully Updated!");
+                  console.log(`${answers.employee} was successfully added!`);
                   employee_tracker_db();
                 }
               );
@@ -256,3 +256,4 @@ let employee_tracker_db = function () {
 //Lookup Functions: https://www.labkey.org/Documentation/wiki-page.view?name=lookups#:~:text=Lookups%20are%20an%20intuitive%20table,the%20source%20table%20or%20query.
 //SQL ERROR: https://stackoverflow.com/questions/21785975/mysql-error-1136-21s01-column-count-doesnt-match-value-count-at-row-1
 //New Set Array: https://stackoverflow.com/questions/63928416/how-does-new-setarray-works-in-javascript#:~:text=Essentially%20a%20Set%20is%20a,remove%20duplicates%20from%20the%20array.
+//choice paramater issue: https://github.com/nrwl/nx/issues/4593
