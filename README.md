@@ -29,7 +29,7 @@ The features are prompts that allow various options related to employee tracking
 
 ##Contribution =
 
-Future contributions could be to add more options, add the bonus items, and ensure all code is refactored to its best quality
+Future contributions could be to add more options, add the bonus items, and ensure all code is refactored to its best quality, allowing deleting functions and more!
 
 ##Credits =
 
@@ -41,4 +41,4 @@ Boots808 - https://github.com/Boots808/polar-bear-white
 
 Polar-Bear-White Link to the Deployed Page: (Note: page will not work for this particular repo since it was created using Node):https://github.com/Boots808/polar-bear-white
 
-Link to the video presentation: NEED TO ADD
+Link to the video presentation: https://drive.google.com/file/d/1eVR8Ry38FHjlADGFTZadgyUdv55U3wIn/view
